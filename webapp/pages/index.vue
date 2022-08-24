@@ -1,18 +1,14 @@
 <template>
-  <div>
-    Mensaje desde el servidor: {{msg}}
+  <div class="container">
+    Test de bootstrap
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import {Context} from '@nuxt/types';
+// import {Context} from '@nuxt/types';
 
 export default Vue.extend({
   name: 'IndexPage',
-  async asyncData({$axios}: Context) {
-    const msg = await $axios.$get('/api/hello');
-    return { msg };
-  }
 })
 </script>

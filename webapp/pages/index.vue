@@ -1,7 +1,7 @@
 <template>
-  <div class="container">
-    Test de bootstrap
-  </div>
+  <main>
+    Hola
+  </main>
 </template>
 
 <script lang="ts">

@@ -17,9 +17,22 @@ De no estar autenticado, las rutas `/api/*` responderan con:
 
 ```JSON
 {
-    "error": "Tiene que estar autenticado para realizar la solicitud"
+    "error": {
+        "detail": "Tiene que estar autenticado para iniciar sesion"
+    }
 }
 ```
+
+<!-- Revisar para que se ajuten medianamente a:
+
+https://jsonapi.org/format/
+
+Al menos que tome la parte de que la respuesta tiene `data` o `error`
+
+Los objetos que devueve ya estan bien para ser la data, solo hay que definir
+que es lo que tendran los de error.
+
+-->
 
 # Index
 
@@ -41,7 +54,7 @@ Recibe un objeto en la siguiente forma:
 
 ```typescript
 {
-    email: string
+    email: string,
     password: string
 }
 ```
@@ -108,3 +121,54 @@ forma:
 Donde `error` solo estara definido en caso de que `registered` sea falso.
 
 # Dashboard
+
+## `/dashboard`
+
+Le al usuario ir a:
+
+* Su pagina de perfil (`/profile`).
+* La seccion de trivia (`/trivia`).
+* Agregar amigos (`/add-friend`).
+
+Tambien le mostrara al usuario:
+
+* Su puntaje y nivel.
+* Las solicitudes de amistad que tenga pendientes.
+
+## `/api/dasboard-data`
+
+**Metodo:** `GET`
+
+Responde con un objeto en la forma:
+
+```typescript
+{
+    name: string,
+    surname: string,
+    score: number,
+    level: number,
+    avatar: string,
+    friendRequests: FriendRequest[]
+}
+```
+
+Donde `FriendRequest` se define como:
+
+```typescript
+{
+    senderId: number,
+    name: string,
+    surname: string,
+    avatar: string
+}
+```
+## `/api/process-friend-request`
+
+Recibe un objeto en la forma:
+
+```typescript
+{
+    accepted: boolean,
+    senderId: number
+}
+```

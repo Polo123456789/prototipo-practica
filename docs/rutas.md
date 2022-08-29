@@ -6,33 +6,89 @@ del sitio:
 ![](./img/estados.png)
 
 Todas las rutas de la API reciben y contestan con objetos JSON. Excepto a que se
-mencione explicitamente, todas las rutas `/api/*` reciben sus datos con un
+mencione explicitamente, todas las rutas de la API reciben sus datos con un
 `POST`.
 
 Todas las rutas a excepcion de `/`, `/inicio-sesion` y `/registrarse` requieren
 que el usuario este autenticado. De no estar autenticado se le redireccionara a
-`inicio-sesion`.
+`/inicio-sesion`.
 
-De no estar autenticado, las rutas `/api/*` responderan con:
+De no estar autenticado, las rutas de la API responderan con:
 
 ```JSON
 {
     "error": {
-        "detail": "Tiene que estar autenticado para iniciar sesion"
+        "status": 401,
+        "detail": "Debe estar autenticado primero"
     }
 }
 ```
 
-<!-- Revisar para que se ajuten medianamente a:
+# Formato de las respuestas
 
-https://jsonapi.org/format/
+Las respuestas del servidor tienen que contener uno (pero no ambos) de los 
+siguientes miembros a nivel superior:
 
-Al menos que tome la parte de que la respuesta tiene `data` o `error`
+* `data`
+* `error`
 
-Los objetos que devueve ya estan bien para ser la data, solo hay que definir
-que es lo que tendran los de error.
+Opcionalmente puede tener a nivel superior un miebro `alert`.
 
--->
+## `data`
+
+Se retornaria si la operacion se realizo correctamente.
+
+Este no tiene ningun formato en especifico, unicamente contiene la respuesta a
+la solicitud que se haya hecho.
+
+## `error`
+
+Se retornaria si ocurrio un error interno, o un error inesperado al procesar los
+datos del usuario.
+
+Este sigue el siguiente formato:
+
+```typescript
+{
+    /** Una descripcion detallada del error */
+    detail: string,
+
+    /** Un resumen del error */
+    title?: string,
+
+    /** EL codigo HTTP aplicable al problema */
+    status?: number,
+
+    /** Link que contiene mas informacion sobre el problema en especifico */
+    about_link?: string,
+
+    /** Informacion que pueda ser util para encontrar el problema */
+    debug?: any
+}
+```
+
+## `alert`
+
+Este contiene informacion que se mostrara al usuario en un toast. Sigue el
+siguiente formato:
+
+```typescript
+{
+    /** Mensaje a mostrar */
+    message: string,
+
+    /** Resumen del mensaje */
+    title?: string,
+
+    /** Boton para tomar alguna accion luego de leer el mensaje */
+    button?: {
+        /** Link que seguira el boton */
+        link: string,
+        /** Texto que tendra el boton */
+        text: string
+    }
+}
+```
 
 # Index
 
@@ -59,7 +115,7 @@ Recibe un objeto en la siguiente forma:
 }
 ```
 
-Valida las credenciales, y responde con un objeto en la forma:
+Valida las credenciales, y responde con `data` en la forma:
 
 ```typescript
 {
@@ -108,23 +164,34 @@ Donde `birthDate` se obtuvo de un objeto `Date` usando el metodo
 [^1]: Para que sea mas sencillo obtener la fecha desde python.
 [Referencia](https://stackoverflow.com/questions/8153631/js-date-object-to-python-datetime).
 
-De registrar exitosamente al usuario el servidor respondera un objeto en la
+De registrar exitosamente al usuario el servidor respondera con `data` en la
 forma:
 
 ```typescript
 {
-    error?: string,
-    registered: boolean
+    /** Verdadero si el usuario fue registrado */
+    registered: boolean,
+    
+    /** 
+     * Explicacion en texto plano de porque no se pudo registrar al usuario
+     * 
+     * Ex. "El correo ya esta en uso por otra cuenta"
+     */
+    whyNot?: string,
+
+    /**
+     * Los campos que el usuario tiene que corregir para registrarse
+     * 
+     * Ex. ["email"]
+     */
+    offendingFields?: string[]
 }
 ```
-
-Donde `error` solo estara definido en caso de que `registered` sea falso.
-
 # Dashboard
 
 ## `/dashboard`
 
-Le al usuario ir a:
+Le permite al usuario ir a:
 
 * Su pagina de perfil (`/profile`).
 * La seccion de trivia (`/trivia`).
@@ -134,6 +201,11 @@ Tambien le mostrara al usuario:
 
 * Su puntaje y nivel.
 * Las solicitudes de amistad que tenga pendientes.
+
+Adiciolamente permitira al administrador ir a:
+
+* Ver el ranking global (`/global-rank`).
+* Agregar otros administradores (`/add-admin`).
 
 ## `/api/dasboard-data`
 
@@ -147,7 +219,7 @@ Responde con un objeto en la forma:
     surname: string,
     score: number,
     level: number,
-    avatar: string,
+    avatar: string, // La url del avatar seleccionado
     friendRequests: FriendRequest[]
 }
 ```

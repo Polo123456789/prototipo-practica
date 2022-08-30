@@ -244,3 +244,14 @@ Recibe un objeto en la forma:
     senderId: number
 }
 ```
+
+Y responde con `data` en la forma:
+
+```typescript
+{
+    processed: boolean
+}
+```
+# Trivia
+
+<!-- TODO: Revisar los cambios en casa, y terminar -->

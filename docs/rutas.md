@@ -164,8 +164,7 @@ Donde `birthDate` se obtuvo de un objeto `Date` usando el metodo
 [^1]: Para que sea mas sencillo obtener la fecha desde python.
 [Referencia](https://stackoverflow.com/questions/8153631/js-date-object-to-python-datetime).
 
-De registrar exitosamente al usuario el servidor respondera con `data` en la
-forma:
+El servidor respondera con `data` en la forma:
 
 ```typescript
 {

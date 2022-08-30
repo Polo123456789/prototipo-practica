@@ -195,6 +195,7 @@ Le permite al usuario ir a:
 * Su pagina de perfil (`/profile`).
 * La seccion de trivia (`/trivia`).
 * Agregar amigos (`/add-friend`).
+* Ver el ranking de amigos (`/friend-rank`).
 
 Tambien le mostrara al usuario:
 
@@ -210,7 +211,7 @@ Adiciolamente permitira al administrador ir a:
 
 **Metodo:** `GET`
 
-Responde con un objeto en la forma:
+Responde con `data` en la forma:
 
 ```typescript
 {

@@ -194,8 +194,8 @@ Le permite al usuario ir a:
 
 * Su pagina de perfil (`/profile`).
 * La seccion de trivia (`/trivia`).
-* Agregar amigos (`/add-friend`).
 * Ver el ranking de amigos (`/friend-rank`).
+* Buscar usuarios (`/search-user`).
 
 Tambien le mostrara al usuario:
 

@@ -164,8 +164,7 @@ Donde `birthDate` se obtuvo de un objeto `Date` usando el metodo
 [^1]: Para que sea mas sencillo obtener la fecha desde python.
 [Referencia](https://stackoverflow.com/questions/8153631/js-date-object-to-python-datetime).
 
-De registrar exitosamente al usuario el servidor respondera con `data` en la
-forma:
+El servidor respondera con `data` en la forma:
 
 ```typescript
 {
@@ -195,6 +194,7 @@ Le permite al usuario ir a:
 
 * Su pagina de perfil (`/profile`).
 * La seccion de trivia (`/trivia`).
+* Ver el ranking de amigos (`/friend-rank`).
 * Buscar usuarios (`/search-user`).
 
 Tambien le mostrara al usuario:
@@ -211,7 +211,7 @@ Adiciolamente permitira al administrador ir a:
 
 **Metodo:** `GET`
 
-Responde con un objeto en la forma:
+Responde con `data` en la forma:
 
 ```typescript
 {
@@ -245,8 +245,13 @@ Recibe un objeto en la forma:
 }
 ```
 
+Y responde con `data` en la forma:
+
+```typescript
+{
+    processed: boolean
+}
+```
 # Trivia
 
-## `/trivia`
-
-<!--TODO-->
+<!-- TODO -->

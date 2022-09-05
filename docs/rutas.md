@@ -254,4 +254,4 @@ Y responde con `data` en la forma:
 ```
 # Trivia
 
-<!-- TODO: Revisar los cambios en casa, y terminar -->
+<!-- TODO -->

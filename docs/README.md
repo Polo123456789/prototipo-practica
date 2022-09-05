@@ -1,7 +1,3 @@
-# Nota
-
-Ando afuera, asi que voy trabajando en el editor web de github. Revisar los commits, borrar este mensaje, y agregarlo a main.
-
 # Prototipo Practica "Trivia Guatemala"
 
 Este es un prototipo basado en la información disponible hasta la unidad 3 de
